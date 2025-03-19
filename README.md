@@ -58,11 +58,22 @@ pnpm start
 └── pnpm-lock.yaml        # 依赖锁定文件
 ```
 
-## 使用示例
+## 使用场景
+
+主要用于转发适配各类通知 Webhook，例如：
+- 代码仓库事件通知（GitHub/GitLab 的 push、issue、PR 等事件）
+- CI/CD 构建结果通知
+- 系统监控告警通知
+- 第三方服务状态变更通知
+
+## 使用说明
+
+### 配置映射规则
+
+直接修改 `app/rules.ts` 文件，添加或修改映射规则：
 
 ```typescript
-// 定义映射规则
-const rules = [
+[
   {
     path: '/api/users',
     method: 'GET',
@@ -79,11 +90,18 @@ const rules = [
       })
     }
   }
-];
-
-// 创建请求映射器
-const mapper = new RequestMapper(rules);
+]
 ```
+
+### 规则说明
+
+- `path`: 请求路径
+- `method`: HTTP 方法
+- `schema`: 使用 Joi 定义的数据验证规则
+- `mapping`: 映射配置
+  - `url`: 目标 API 地址
+  - `method`: 目标 API 的 HTTP 方法
+  - `input`: 数据转换函数
 
 ## 配置说明
 
