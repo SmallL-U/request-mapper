@@ -43,11 +43,11 @@ export class RequestMapper {
     data: Record<string, any>,
     ctx: Context
   ) {
-    const { url, method, input, schema } = rule.mapping;
+    const { url, method, input } = rule.mapping;
 
     // Validate input data if schema exists
-    if (schema) {
-      const validation = this.validateData(data, schema);
+    if (rule.schema) {
+      const validation = this.validateData(data, rule.schema);
       if (validation.error) {
         ctx.status = 400;
         return { error: validation.error };
