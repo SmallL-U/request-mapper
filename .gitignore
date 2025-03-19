@@ -1,0 +1,45 @@
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# TypeScript compiled output
+dist/
+build/
+out/
+
+# TypeScript declaration files
+*.d.ts
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# dotenv environment variables file
+.env
+
+# Mac system files
+.DS_Store
+
+# Logs
+logs/
+*.log
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# IDE specific files
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
