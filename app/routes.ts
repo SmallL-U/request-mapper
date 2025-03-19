@@ -4,6 +4,9 @@ import Router from 'koa-router';
 import { Route } from './types';
 import path from 'node:path';
 import * as fs from 'node:fs';
+import bodyParser from 'koa-bodyparser';
+import { rules } from './rules';
+import { RequestMapper } from './utils/request-mapper';
 
 const logger = createLogger({
   prefix: 'Routes',
@@ -75,9 +78,17 @@ async function registerRoutes(
   }
 }
 
-export default async () => {
-  const router = new Router();
-  await registerRoutes(router, path.join(__dirname, 'routes'));
-  logger.info('Routes registered');
-  return router.routes();
-};
+const router = new Router();
+const requestMapper = new RequestMapper(rules);
+
+// Apply body parser middleware
+router.use(bodyParser());
+
+// Add routes for each rule
+rules.forEach((rule) => {
+  router[rule.method](rule.path, async (ctx) => {
+    await requestMapper.handle(ctx);
+  });
+});
+
+export default router;

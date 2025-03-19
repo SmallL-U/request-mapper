@@ -4,7 +4,7 @@ import Koa from 'koa';
 import koaLogger from 'koa-logger';
 import bodyParser from 'koa-bodyparser';
 import { Server } from 'node:net';
-import routes from './routes';
+import router from './routes';
 
 const logger = createLogger({
   prefix: 'App',
@@ -18,7 +18,8 @@ const logger = createLogger({
   // Middleware
   app.use(koaLogger());
   app.use(bodyParser());
-  app.use(await routes());
+  app.use(router.routes());
+  app.use(router.allowedMethods());
   // Start
   const server: Server = app.listen(parseInt(config.port));
   logger.info('Application started on port %s', config.port);
